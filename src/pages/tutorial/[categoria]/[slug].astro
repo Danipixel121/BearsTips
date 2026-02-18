@@ -4,7 +4,10 @@ import TutorialLayout from '../../../layouts/TutorialLayout.astro';
 
 export function getStaticPaths() {
   return tutoriales.map(t => ({
-    params: { categoria: t.categoria, slug: t.slug },
+    params: {
+      categoria: t.categoria,
+      slug: t.slug
+    },
     props: { tutorial: t }
   }));
 }
