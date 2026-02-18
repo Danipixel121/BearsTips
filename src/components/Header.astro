@@ -1,0 +1,115 @@
+---
+// src/components/Header.astro
+const navItems = ["IA", "PROGRAMACION", "SOFTWARE", "HARDWARE"];
+---
+
+<header class="site-header">
+  <div class="header-inner" style="display: flex; align-items: center; justify-content: space-between;">
+    
+    <!-- Logo + Título -->
+    <div style="display: flex; align-items: center;">
+      <a href="/" class="logo">
+        <img src="/favicon.ico" alt="BearsTips" class="logo-img" />
+      </a>
+      <h1 style="color: #00ff9d; margin-left: 0.5rem; font-family: 'Bebas Neue', cursive; font-size: 1.5rem;">
+        bearstips
+      </h1>
+    </div>
+
+    <!-- Navegación -->
+    <nav class="nav">
+      {navItems.map((item) => (
+        <a
+          href={`/categoria/${item.toLowerCase()}`}
+          class="nav-link"
+        >
+          {item}
+        </a>
+      ))}
+    </nav>
+
+  </div>
+</header>
+
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap');
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0a0a0a;
+    border-bottom: 1px solid #222;
+    backdrop-filter: blur(12px);
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .logo:hover {
+    opacity: 0.75;
+  }
+
+  .logo-img {
+    height: 46px;
+    width: 60px;
+    object-fit: contain;
+  }
+
+  .logo-img:hover {
+    transform: scale(1.25);
+  }
+
+  .nav {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #888;
+    text-decoration: none;
+    padding: 0.45rem 1.9rem;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: #00ff9d;
+    border-color: #00ff9d33;
+    background: #00ff9d0a;
+  }
+
+  @media (max-width: 600px) {
+    .header-inner {
+      flex-direction: column;
+      height: auto;
+      padding: 1rem;
+      gap: 0.75rem;
+    }
+
+    .nav {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>

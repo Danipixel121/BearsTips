@@ -1,0 +1,44 @@
+---
+const { titulo, contenido } = Astro.props;
+import Header from '../components/Header.astro';
+---
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{titulo}</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <Header />
+
+  <main>
+    <article class="tutorial">
+      <h2>{titulo}</h2>
+      <div style="font-size: 1.2rem;" set:html={contenido}></div>
+    </article>
+  </main>
+
+  <footer>
+    <p>© 2026 BearsTips</p>
+  </footer>
+</body>
+</html>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+h1, h2 {
+  font-size: 2.5rem;
+}
+
+</style>

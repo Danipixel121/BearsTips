@@ -1,0 +1,20 @@
+[
+  {
+    "categoria": "programacion",
+    "slug": "instalar-vscode",
+    "titulo": "Cómo instalar Visual Studio Code: Guía completa",
+    "contenido": "\n\n<p>Visual Studio Code (VS Code) es uno de los editores de código más populares y versátiles del mundo. Gratuito, ligero y multiplataforma, VS Code es perfecto para programadores de todos los niveles. En esta guía aprenderás cómo instalarlo paso a paso, configurarlo y aprovechar sus extensiones más útiles.</p>\n\n<img src=\"https://code.visualstudio.com/assets/home/swimlane-anywhere.png\" alt=\"Visual Studio Code interfaz\" style=\"width:100%;max-width:800px;margin:20px 0;\">\n\n<h2>¿Qué es Visual Studio Code?</h2>\n<p>VS Code es un editor de código fuente desarrollado por Microsoft. Soporta una gran variedad de lenguajes como <strong>Python, JavaScript, Java, C++</strong> y muchos más. Además, cuenta con:</p>\n<ul>\n  <li>Integración con Git y GitHub</li>\n  <li>Terminal integrada</li>\n  <li>Soporte para depuración avanzada</li>\n  <li>Extensiones para personalizar tu entorno</li>\n</ul>\n\n<img src=\"URL_DE_TU_IMAGEN_2\" alt=\"Características de VS Code\" style=\"width:100%;max-width:800px;margin:20px 0;\">\n\n<h2>Requisitos para instalar VS Code</h2>\n<p>Antes de instalar, asegúrate de que tu computadora cumpla con los siguientes requisitos mínimos:</p>\n<ul>\n  <li><strong>Windows:</strong> Windows 10 o superior</li>\n  <li><strong>Mac:</strong> macOS 10.11 o superior</li>\n  <li><strong>Linux:</strong> Distribuciones basadas en Debian, Red Hat, Fedora o Snap</li>\n  <li>Al menos 1 GB de RAM y 200 MB de espacio libre en disco</li>\n</ul>\n\n<h2>Pasos para instalar Visual Studio Code</h2>\n\n<h3>1. Descargar VS Code</h3>\n<p>Visita la página oficial de Visual Studio Code: <a href=\"https://code.visualstudio.com/\">https://code.visualstudio.com/</a> y descarga la versión correspondiente a tu sistema operativo.</p>\n\n<img src=\"URL_DE_TU_IMAGEN_3\" alt=\"Descargar Visual Studio Code\" style=\"width:100%;max-width:800px;margin:20px 0;\">\n\n<h3>2. Instalar en Windows</h3>\n<ol>\n  <li>Ejecuta el instalador descargado.</li>\n  <li>Acepta los términos y condiciones.</li>\n  <li>Selecciona la carpeta de instalación o deja la predeterminada.</li>\n  <li>Marca las opciones “Agregar a PATH” y “Crear acceso directo en escritorio”.</li>\n  <li>Haz clic en “Instalar” y espera a que finalice.</li>\n</ol>\n\n<h3>3. Instalar en Mac</h3>\n<ol>\n  <li>Abre el archivo .dmg descargado.</li>\n  <li>Arrastra el icono de Visual Studio Code a la carpeta de Aplicaciones.</li>\n  <li>Abre la aplicación y permite que se ejecute.</li>\n</ol>\n\n<h3>4. Instalar en Linux</h3>\n<p>Dependiendo de tu distribución:</p>\n<ul>\n  <li><strong>Debian/Ubuntu:</strong> <code>sudo apt install ./&lt;archivo_descargado&gt;.deb</code></li>\n  <li><strong>Fedora/Red Hat:</strong> <code>sudo rpm -i &lt;archivo_descargado&gt;.rpm</code></li>\n  <li><strong>Snap:</strong> <code>sudo snap install code --classic</code></li>\n</ul>\n\n<h2>Configuración inicial</h2>\n<p>Una vez instalado, te recomendamos instalar extensiones esenciales como:</p>\n<ul>\n  <li>Python</li>\n  <li>Prettier - Code formatter</li>\n  <li>Live Server</li>\n  <li>GitLens</li>\n</ul>\n\n<p>También puedes personalizar el tema, atajos de teclado y la terminal integrada para optimizar tu flujo de trabajo.</p>\n\n<img src=\"URL_DE_TU_IMAGEN_4\" alt=\"Extensiones de VS Code\" style=\"width:100%;max-width:800px;margin:20px 0;\">\n\n<h2>Conclusión</h2>\n<p>Visual Studio Code es un editor potente y flexible que puede adaptarse a cualquier tipo de programación. Siguiendo esta guía, podrás instalarlo, configurarlo y empezar a programar de inmediato.</p>"
+  },
+  {
+    "categoria": "programacion",
+    "slug": "primeros-pasos-python",
+    "titulo": "Primeros pasos con Python",
+    "contenido": "<p>Contenido de Python...</p>"
+  },
+  {
+    "categoria": "software",
+    "slug": "instalar-word",
+    "titulo": "Instalar Word",
+    "contenido": "<p>Contenido Word...</p>"
+  }
+]

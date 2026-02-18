@@ -1,0 +1,47 @@
+---
+import tutoriales from '../../content/tutoriales.json';
+import Header from '../../components/Header.astro';
+
+export async function getStaticPaths() {
+  const categorias = [...new Set(tutoriales.map(t => t.categoria.toLowerCase()))];
+  return categorias.map(categoria => ({ params: { categoria } }));
+}
+
+const { categoria } = Astro.params;
+
+const tutorialesFiltrados = tutoriales.filter(
+  t => t.categoria.toLowerCase() === categoria
+);
+---
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{categoria.toUpperCase()} - BearsTips</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <Header />
+
+  <main>
+    <h2>{categoria.toUpperCase()}</h2>
+    <ul>
+      {tutorialesFiltrados.map(t => (
+        <li>
+          <a href={`/tutorial/${t.categoria.toLowerCase()}/${t.slug}`}>{t.titulo}</a>
+        </li>
+      ))}
+    </ul>
+  </main>
+
+  <footer>
+    <p>© 2026 BearsTips</p>
+  </footer>
+</body>
+</html>
+
+<style>
+    body {
+    margin: 0;
+  }
+</style>

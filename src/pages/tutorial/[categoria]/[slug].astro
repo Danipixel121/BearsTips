@@ -1,0 +1,15 @@
+---
+import tutoriales from '../../../content/tutoriales.json';
+import TutorialLayout from '../../../layouts/TutorialLayout.astro';
+
+export function getStaticPaths() {
+  return tutoriales.map(t => ({
+    params: { categoria: t.categoria, slug: t.slug },
+    props: { tutorial: t }
+  }));
+}
+
+const { tutorial } = Astro.props;
+---
+
+<TutorialLayout titulo={tutorial.titulo} contenido={tutorial.contenido} />
