@@ -1,27 +1,65 @@
 ---
-const { titulo, contenido } = Astro.props;
+const { titulo, contenido, lang = 'es' } = Astro.props;
 import Header from '../components/Header.astro';
+
+const textos = {
+  es: {
+    footer: '© 2026 BearsTips',
+    volver: '← Volver'
+  },
+  en: {
+    footer: '© 2026 BearsTips',
+    volver: '← Go back'
+  }
+};
+
+const t = textos[lang as 'es' | 'en'];
+const urlInicio = lang === 'en' ? '/en' : '/';
 ---
-<html lang="es">
+
+<html lang={lang}>
 <head>
   <meta charset="UTF-8">
   <title>{titulo}</title>
-  <link rel="stylesheet" href="../assets/styles.css">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
 </head>
 <body>
   <Header />
 
   <main>
+    <a href={urlInicio} class="btn-volver">{t.volver}</a>
     <article class="tutorial">
       <h2>{titulo}</h2>
-      <div style="font-size: 1.2rem;" set:html={contenido}></div>
+      <div class="contenido-tutorial" set:html={contenido}></div>
     </article>
   </main>
 
   <footer>
-    <p>© 2026 BearsTips</p>
+    <p>{t.footer}</p>
   </footer>
+
+  <script>
+    document.querySelectorAll('pre').forEach(function(pre) {
+      const btn = document.createElement('button');
+      btn.innerText = 'Copiar';
+      btn.className = 'copy-btn';
+
+      btn.addEventListener('click', function() {
+        const code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
+        navigator.clipboard.writeText(code).then(function() {
+          btn.innerText = '¡Copiado!';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.innerText = 'Copiar';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+
+      pre.appendChild(btn);
+    });
+  </script>
 </body>
 </html>
 
@@ -30,7 +68,6 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  justify-content: center;
 }
 
 main {
@@ -38,8 +75,79 @@ main {
   margin: 20px auto;
   padding: 0 20px;
 }
+
 h1, h2 {
   font-size: 2.5rem;
 }
 
+.btn-volver {
+  display: inline-block;
+  margin: 1rem 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  color: #00ff9d;
+  text-decoration: none;
+}
+
+.btn-volver:hover {
+  text-decoration: underline;
+}
+
+/* ✅ :global() para que afecte al HTML inyectado con set:html */
+:global(.contenido-tutorial pre) {
+  position: relative;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  border-radius: 8px;
+  padding: 20px 16px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 20px 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+:global(.contenido-tutorial pre code) {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Código inline dentro de párrafos y listas */
+:global(.contenido-tutorial li code),
+:global(.contenido-tutorial p code) {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Courier New', monospace;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+:global(.copy-btn) {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #3a3a3a;
+  color: #ccc;
+  border: 1px solid #555;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+:global(.copy-btn:hover) {
+  background: #555;
+  color: #fff;
+}
+
+:global(.copy-btn.copied) {
+  background: #2ea043;
+  color: #fff;
+  border-color: #2ea043;
+}
 </style>

@@ -1,7 +1,10 @@
 ---
-// src/components/Header.astro
 const navItems = ["IA", "PROGRAMACION", "SOFTWARE", "HARDWARE"];
+
+// Detecta el idioma según la URL actual
+const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
 ---
+
 
 <header class="site-header">
   <div class="header-inner" style="display: flex; align-items: center; justify-content: space-between;">
@@ -20,7 +23,7 @@ const navItems = ["IA", "PROGRAMACION", "SOFTWARE", "HARDWARE"];
     <nav class="nav">
       {navItems.map((item) => (
         <a
-          href={`/categoria/${item.toLowerCase()}`}
+href={`/${lang}/categoria/${item.toLowerCase()}`}
           class="nav-link"
         >
           {item}

@@ -1,0 +1,34 @@
+---
+import { supabase } from '../../../../lib/supabase.ts';
+import TutorialLayout from '../../../../layouts/TutorialLayout.astro';
+
+export async function getStaticPaths() {
+  const { data: tutoriales } = await supabase
+    .from('tutoriales')
+    .select(`
+      *,
+      traducciones:tutoriales_traducciones(*)
+    `);
+
+  return (tutoriales || []).map(t => {
+    const traduccion = t.traducciones.find(tr => tr.idioma === 'es');
+    return {
+      params: {
+        categoria: t.categoria.toLowerCase(),
+        slug: t.slug
+      },
+      props: {
+        tutorial: {
+          titulo: traduccion?.titulo || '',
+          contenido: traduccion?.contenido || '',
+          logo: t.logo_url
+        }
+      }
+    };
+  });
+}
+
+const { tutorial } = Astro.props;
+---
+
+<TutorialLayout titulo={tutorial.titulo} contenido={tutorial.contenido} lang="es" />
