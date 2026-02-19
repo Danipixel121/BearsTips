@@ -1,39 +1,61 @@
 ---
 const navItems = ["IA", "PROGRAMACION", "SOFTWARE", "HARDWARE"];
-
-// Detecta el idioma según la URL actual
 const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
 ---
 
-
 <header class="site-header">
-  <div class="header-inner" style="display: flex; align-items: center; justify-content: space-between;">
+  <div class="header-inner">
     
-    <!-- Logo + Título -->
-    <div style="display: flex; align-items: center;">
+    <!-- Hamburger (solo mobile, izquierda) -->
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Logo + Título (centrado en mobile) -->
+    <div class="logo-wrap">
       <a href="/" class="logo">
         <img src="/favicon.ico" alt="BearsTips" class="logo-img" />
       </a>
-      <h1 style="color: #00ff9d; margin-left: 0.5rem; font-family: 'Bebas Neue', cursive; font-size: 1.5rem;">
-        bearstips
-      </h1>
+      <h1 class="logo-title">bearstips</h1>
     </div>
 
-    <!-- Navegación -->
-    <nav class="nav">
+    <!-- Espacio derecho para equilibrar (solo mobile) -->
+    <div class="hamburger-placeholder"></div>
+
+    <!-- Navegación desktop -->
+    <nav class="nav" id="nav">
       {navItems.map((item) => (
-        <a
-href={`/${lang}/categoria/${item.toLowerCase()}`}
-          class="nav-link"
-        >
+        <a href={`/${lang}/categoria/${item.toLowerCase()}`} class="nav-link">
           {item}
         </a>
       ))}
     </nav>
 
   </div>
+
+  <!-- Menú desplegable mobile -->
+  <div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-nav">
+      {navItems.map((item) => (
+        <a href={`/${lang}/categoria/${item.toLowerCase()}`} class="mobile-nav-link">
+          {item}
+        </a>
+      ))}
+    </nav>
+  </div>
 </header>
 
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger?.addEventListener('click', () => {
+    const isOpen = mobileMenu?.classList.toggle('open');
+    hamburger.classList.toggle('active');
+  });
+</script>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap');
@@ -57,6 +79,12 @@ href={`/${lang}/categoria/${item.toLowerCase()}`}
     justify-content: space-between;
   }
 
+  /* ── Logo ── */
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+  }
+
   .logo {
     display: flex;
     align-items: center;
@@ -64,9 +92,7 @@ href={`/${lang}/categoria/${item.toLowerCase()}`}
     transition: opacity 0.2s;
   }
 
-  .logo:hover {
-    opacity: 0.75;
-  }
+  .logo:hover { opacity: 0.75; }
 
   .logo-img {
     height: 46px;
@@ -74,10 +100,18 @@ href={`/${lang}/categoria/${item.toLowerCase()}`}
     object-fit: contain;
   }
 
-  .logo-img:hover {
-    transform: scale(1.25);
+  .logo-img:hover { transform: scale(1.25); }
+
+  .logo-title {
+    color: #00ff9d;
+    margin-left: 0.5rem;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
+  /* ── Nav desktop ── */
   .nav {
     display: flex;
     gap: 0.25rem;
@@ -93,7 +127,6 @@ href={`/${lang}/categoria/${item.toLowerCase()}`}
     padding: 0.45rem 1.9rem;
     border: 1px solid transparent;
     transition: all 0.2s;
-    position: relative;
   }
 
   .nav-link:hover {
@@ -102,17 +135,94 @@ href={`/${lang}/categoria/${item.toLowerCase()}`}
     background: #00ff9d0a;
   }
 
-  @media (max-width: 600px) {
-    .header-inner {
-      flex-direction: column;
-      height: auto;
-      padding: 1rem;
-      gap: 0.75rem;
-    }
+  /* ── Hamburger ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    width: 36px;
+  }
 
-    .nav {
-      flex-wrap: wrap;
-      justify-content: center;
+  .hamburger span {
+    display: block;
+    height: 2px;
+    width: 24px;
+    background: #888;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+
+  .hamburger:hover span { background: #00ff9d; }
+
+  /* Animación a X cuando está activo */
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Placeholder para equilibrar el layout en mobile */
+  .hamburger-placeholder {
+    display: none;
+    width: 36px;
+  }
+
+  /* ── Mobile menu ── */
+  .mobile-menu {
+    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: #0a0a0a;
+    border-top: 1px solid #1a1a1a;
+  }
+
+  .mobile-menu.open {
+    max-height: 300px;
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0 1rem;
+  }
+
+  .mobile-nav-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #888;
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .mobile-nav-link:hover {
+    color: #00ff9d;
+    background: #00ff9d08;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    .hamburger { display: flex; }
+    .hamburger-placeholder { display: block; }
+    .nav { display: none; }
+    .mobile-menu { display: block; }
+
+    .logo-wrap {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 </style>
