@@ -2,21 +2,12 @@
 const { titulo, contenido, lang = 'es' } = Astro.props;
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-
-const textos = {
-  es: { volver: '← Volver' },
-  en: { volver: '← Go back' }
-};
-
-const t = textos[lang as 'es' | 'en'];
-const urlInicio = lang === 'en' ? '/en' : '/';
 ---
 
 <html lang={lang}>
 <head>
   <meta charset="UTF-8">
   <title>{titulo}</title>
-  <link rel="stylesheet" href="/assets/styles.css">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -24,7 +15,6 @@ const urlInicio = lang === 'en' ? '/en' : '/';
   <Header />
 
   <main>
-    <a href={urlInicio} class="btn-volver">{t.volver}</a>
     <article class="tutorial">
       <h2>{titulo}</h2>
       <div class="contenido-tutorial" set:html={contenido}></div>
@@ -74,20 +64,6 @@ h1, h2 {
   font-size: 2.5rem;
 }
 
-.btn-volver {
-  display: inline-block;
-  margin: 1rem 0;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.1rem;
-  color: #00ff9d;
-  text-decoration: none;
-}
-
-.btn-volver:hover {
-  text-decoration: underline;
-}
-
-/* ── Contenido inyectado con set:html ── */
 :global(.contenido-tutorial pre) {
   position: relative;
   background: #1e1e1e;
@@ -144,23 +120,10 @@ h1, h2 {
   border-color: #2ea043;
 }
 
-/* ════════════════════════════════
-   MOBILE
-════════════════════════════════ */
 @media (max-width: 640px) {
-
   main {
     margin: 12px auto;
     padding: 0 1.1rem;
-  }
-
-  .btn-volver {
-    font-size: 1rem;
-    margin: 0.75rem 0 0.5rem;
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 0;
-    -webkit-tap-highlight-color: transparent;
   }
 
   h2 {
@@ -171,9 +134,8 @@ h1, h2 {
 
   :global(.contenido-tutorial pre) {
     font-size: 13px;
-    padding: 16px 14px 16px 14px;
-    border-radius: 10px;
     padding-top: 42px;
+    border-radius: 10px;
   }
 
   :global(.copy-btn) {
@@ -195,13 +157,8 @@ h1, h2 {
     line-height: 1.7;
   }
 
-  :global(.contenido-tutorial h3) {
-    font-size: 1.3rem;
-  }
-
-  :global(.contenido-tutorial h4) {
-    font-size: 1.1rem;
-  }
+  :global(.contenido-tutorial h3) { font-size: 1.3rem; }
+  :global(.contenido-tutorial h4) { font-size: 1.1rem; }
 
   :global(.contenido-tutorial ul),
   :global(.contenido-tutorial ol) {
@@ -229,15 +186,8 @@ h1, h2 {
 }
 
 @media (max-width: 360px) {
-
-  main {
-    padding: 0 0.9rem;
-  }
-
-  h2 {
-    font-size: 1.65rem;
-  }
-
+  main { padding: 0 0.9rem; }
+  h2 { font-size: 1.65rem; }
   :global(.contenido-tutorial pre) {
     font-size: 12px;
     padding: 40px 12px 14px;
