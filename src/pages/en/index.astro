@@ -1,6 +1,7 @@
 ---
 import { supabase } from '../../lib/supabase.ts';
 import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 
 const { data: tutorialesData } = await supabase
   .from('tutoriales')
@@ -11,7 +12,7 @@ const { data: tutorialesData } = await supabase
 
 const tutoriales = (tutorialesData || []).map(t => ({
   ...t,
-  titulo: t.traducciones.find(tr => tr.idioma === 'es')?.titulo || '',
+  titulo: t.traducciones.find(tr => tr.idioma === 'en')?.titulo || '',
   logo: t.logo_url
 }));
 
@@ -27,7 +28,6 @@ const tree = categorias.map(categoria => ({
 <head>
   <meta charset="UTF-8">
   <title>Home - BearsTips</title>
-  <link rel="stylesheet" href="/assets/styles.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -66,6 +66,8 @@ const tree = categorias.map(categoria => ({
     </section>
 
   </main>
+
+  <Footer />
 
 <script>
   function normalizar(texto: string): string {
@@ -129,7 +131,6 @@ const tree = categorias.map(categoria => ({
     border-color: #00ff9d;
   }
 
-  /* ── Contenedor principal ── */
   .categorias-grid {
     display: flex;
     flex-direction: column;
@@ -159,7 +160,6 @@ const tree = categorias.map(categoria => ({
     margin-bottom: 1.25rem;
   }
 
-  /* ── Grid de tarjetas ── */
   .tutoriales-cards {
     list-style: none;
     padding: 0;
@@ -173,7 +173,6 @@ const tree = categorias.map(categoria => ({
     display: block;
   }
 
-  /* La tarjeta ocupa todo el li y actúa como botón */
   .tutorial-card {
     display: flex;
     flex-direction: column;
@@ -198,7 +197,6 @@ const tree = categorias.map(categoria => ({
     box-shadow: 0 6px 20px rgba(0, 255, 157, 0.15);
   }
 
-  /* Imagen del logo */
   .card-img-wrap {
     width: 60%;
     aspect-ratio: 1 / 1;
@@ -214,7 +212,6 @@ const tree = categorias.map(categoria => ({
     object-fit: contain;
   }
 
-  /* Título debajo del logo */
   .card-titulo {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 0.85rem;
@@ -229,14 +226,7 @@ const tree = categorias.map(categoria => ({
     color: #000;
   }
 
-/* ── MOBILE RESPONSIVE ── */
-/* Reemplaza el CSS móvil anterior al final del bloque <style> en tu index.astro */
-
-/* ── MOBILE RESPONSIVE ── */
-/* Reemplaza el CSS móvil anterior al final del bloque <style> en tu index.astro */
-
 @media (max-width: 640px) {
-  /* Buscador centrado */
   .buscador {
     margin: 2.5rem auto 0;
     padding: 0 1.25rem;
@@ -252,7 +242,6 @@ const tree = categorias.map(categoria => ({
     border-radius: 20px;
   }
 
-  /* Grid principal centrado */
   .categorias-grid {
     padding: 2rem 1.25rem;
     gap: 3rem;
@@ -260,14 +249,12 @@ const tree = categorias.map(categoria => ({
     text-align: center;
   }
 
-  /* Título principal centrado */
   .titulo-seccion {
     font-size: 3.8rem;
     text-align: center;
     width: 100%;
   }
 
-  /* Bloque de categoría centrado */
   .categoria-bloque {
     display: flex;
     flex-direction: column;
@@ -275,7 +262,6 @@ const tree = categorias.map(categoria => ({
     width: 100%;
   }
 
-  /* Título categoría: barra superior centrada */
   .categoria-titulo {
     font-size: 2.6rem;
     border-left: none;
@@ -287,7 +273,6 @@ const tree = categorias.map(categoria => ({
     width: 100%;
   }
 
-  /* Grid de tarjetas centrado */
   .tutoriales-cards {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.1rem;
@@ -337,93 +322,6 @@ const tree = categorias.map(categoria => ({
 
   .card-titulo {
     font-size: 1rem;
-  }
-}@media (max-width: 640px) {
-  /* Buscador centrado */
-  .buscador {
-    margin: 2rem auto 0;
-    padding: 0 1.25rem;
-    justify-content: center;
-  }
-
-  .buscador input {
-    max-width: 100%;
-    font-size: 18px;
-    padding: 13px 18px;
-    text-align: center;
-  }
-
-  /* Grid principal centrado */
-  .categorias-grid {
-    padding: 2rem 1.25rem;
-    gap: 2.5rem;
-    align-items: center;
-    text-align: center;
-  }
-
-  .titulo-seccion {
-    font-size: 3.2rem;
-    text-align: center;
-  }
-
-  /* Categoría: barra izquierda → barra superior centrada */
-  .categoria-titulo {
-    font-size: 2.4rem;
-    border-left: none;
-    border-top: 5px solid #00ff9d;
-    padding-left: 0;
-    padding-top: 0.6rem;
-    margin-bottom: 1.2rem;
-    text-align: center;
-  }
-
-  /* Tarjetas: 2 columnas grandes */
-  .tutoriales-cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .tutorial-card {
-    padding: 1.3rem 0.9rem 1.1rem;
-    border-radius: 16px;
-    gap: 0.7rem;
-    aspect-ratio: 1 / 1;
-  }
-
-  .card-img-wrap {
-    width: 65%;
-  }
-
-  .card-titulo {
-    font-size: 1.05rem;
-    text-align: center;
-  }
-}
-
-@media (max-width: 380px) {
-  .tutoriales-cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
-  }
-
-  .categorias-grid {
-    padding: 1.5rem 1rem;
-  }
-
-  .titulo-seccion {
-    font-size: 2.8rem;
-  }
-
-  .categoria-titulo {
-    font-size: 2rem;
-  }
-
-  .tutorial-card {
-    padding: 1rem 0.7rem 0.9rem;
-  }
-
-  .card-titulo {
-    font-size: 0.95rem;
   }
 }
 </style>
