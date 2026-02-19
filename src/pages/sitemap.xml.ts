@@ -4,15 +4,14 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.SUPABASE_URL;
 const supabaseKey = import.meta.env.SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseKey) {
-  console.error('❌ ERROR: Falta SUPABASE_URL o SUPABASE_ANON_KEY');
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 export const GET: APIRoute = async () => {
+  if (!supabaseUrl || !supabaseKey) {
+    return new Response('Error: variables de entorno de Supabase no configuradas', { status: 500 });
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
   try {
-    // Traemos tutoriales con idioma, slug y categoria
     const { data, error } = await supabase
       .from('tutoriales_traducciones')
       .select(`idioma, tutoriales (slug, categoria)`);
@@ -40,11 +39,10 @@ ${allPages.map(url => `  <url><loc>${url}</loc></url>`).join('\n')}
 </urlset>`;
 
     return new Response(sitemap, {
-      headers: {
-        'Content-Type': 'application/xml',
-      },
+      headers: { 'Content-Type': 'application/xml' },
     });
   } catch (err) {
+    console.error(err);
     return new Response('Error generando sitemap', { status: 500 });
   }
 };
