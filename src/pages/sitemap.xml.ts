@@ -14,7 +14,7 @@ export const GET: APIRoute = async () => {
   try {
     const { data, error } = await supabase
       .from('tutoriales_traducciones')
-      .select(`idioma, tutoriales (slug, categoria)`);
+      .select('idioma, tutoriales (slug, categoria)');
 
     if (error) {
       console.error('Supabase error:', error);
@@ -27,15 +27,30 @@ export const GET: APIRoute = async () => {
       'https://bearstips.com/en/',
     ];
 
-    const tutorialPages = data?.map((t: any) =>
-      `https://bearstips.com/${t.idioma}/tutorial/${t.tutoriales.categoria}/${t.tutoriales.slug}`
+    // Función para escapar caracteres XML
+    function escapeXml(unsafe: string) {
+      return unsafe.replace(/[<>&'"]/g, c => ({
+        '<': '&lt;',
+        '>': '&gt;',
+        '&': '&amp;',
+        "'": '&apos;',
+        '"': '&quot;',
+      }[c]!));
+    }
+
+    // Generar URLs dinámicas para tutoriales
+    const tutorialPages = data?.flatMap((t: any) =>
+      t.tutoriales.map((tutorial: any) =>
+        `https://bearstips.com/${t.idioma}/tutorial/${encodeURIComponent(tutorial.categoria)}/${encodeURIComponent(tutorial.slug)}`
+      )
     ) ?? [];
 
     const allPages = [...staticPages, ...tutorialPages];
 
+    // Generar sitemap XML seguro
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allPages.map(url => `  <url><loc>${url}</loc></url>`).join('\n')}
+${allPages.map(url => `  <url><loc>${escapeXml(url)}</loc></url>`).join('\n')}
 </urlset>`;
 
     return new Response(sitemap, {
