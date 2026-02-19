@@ -2,35 +2,21 @@
 import { supabase } from '../../../lib/supabase.ts';
 import Header from '../../../components/Header.astro';
 
-export async function getStaticPaths() {
-  const { data: tutorialesData } = await supabase
-    .from('tutoriales')
-    .select(`
-      *,
-      traducciones:tutoriales_traducciones(*)
-    `);
-
-  const tutoriales = (tutorialesData || []).map(t => ({
-    ...t,
-    titulo: t.traducciones.find(tr => tr.idioma === 'es')?.titulo || '',
-    logo: t.logo_url
-  }));
-
-  const categorias = [...new Set(tutoriales.map(t => t.categoria))];
-
-  return categorias.map(categoria => ({
-    params: { categoria: categoria.toLowerCase() },
-    props: {
-      tutorialesFiltrados: tutoriales.filter(t => t.categoria === categoria)
-    }
-  }));
-}
-
 const { categoria } = Astro.params;
-const { tutorialesFiltrados } = Astro.props;
+
+const { data: tutorialesData } = await supabase
+  .from('tutoriales')
+  .select(`*, traducciones:tutoriales_traducciones(*)`)
+  .eq('categoria', categoria);
+
+const tutorialesFiltrados = (tutorialesData || []).map(t => ({
+  ...t,
+  titulo: t.traducciones.find(tr => tr.idioma === 'es')?.titulo || '',
+  logo: t.logo_url
+}));
 ---
 
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>{categoria.toUpperCase()} - BearsTips</title>
