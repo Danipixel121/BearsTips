@@ -7,10 +7,18 @@ const supabase = createClient(
 );
 
 export const GET: APIRoute = async () => {
-  // Obtenemos los tutoriales con sus traducciones
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('tutoriales_traducciones')
-    .select('idioma, slug:tutorial_id(slug, categoria)');
+    .select(`
+      idioma,
+      tutoriales (
+        slug,
+        categoria
+      )
+    `);
+
+  console.log('data:', JSON.stringify(data));
+  console.log('error:', error);
 
   const staticPages = [
     'https://bearstips.com/',
@@ -18,9 +26,8 @@ export const GET: APIRoute = async () => {
     'https://bearstips.com/en/',
   ];
 
-  const tutorialPages = data?.map(t => {
-    const { idioma, slug: tutorial } = t as any;
-    return `https://bearstips.com/${idioma}/tutorial/${tutorial.categoria}/${tutorial.slug}`;
+  const tutorialPages = data?.map((t: any) => {
+    return `https://bearstips.com/${t.idioma}/tutorial/${t.tutoriales.categoria}/${t.tutoriales.slug}`;
   }) ?? [];
 
   const allPages = [...staticPages, ...tutorialPages];
