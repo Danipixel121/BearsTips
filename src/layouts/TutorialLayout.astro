@@ -1,16 +1,11 @@
 ---
 const { titulo, contenido, lang = 'es' } = Astro.props;
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 const textos = {
-  es: {
-    footer: '© 2026 BearsTips',
-    volver: '← Volver'
-  },
-  en: {
-    footer: '© 2026 BearsTips',
-    volver: '← Go back'
-  }
+  es: { volver: '← Volver' },
+  en: { volver: '← Go back' }
 };
 
 const t = textos[lang as 'es' | 'en'];
@@ -36,9 +31,7 @@ const urlInicio = lang === 'en' ? '/en' : '/';
     </article>
   </main>
 
-  <footer>
-    <p>{t.footer}</p>
-  </footer>
+  <Footer />
 
   <script>
     document.querySelectorAll('pre').forEach(function(pre) {
@@ -164,7 +157,6 @@ h1, h2 {
   .btn-volver {
     font-size: 1rem;
     margin: 0.75rem 0 0.5rem;
-    /* área de toque más grande */
     display: inline-flex;
     align-items: center;
     padding: 6px 0;
@@ -177,12 +169,10 @@ h1, h2 {
     margin: 0.5rem 0 1.25rem;
   }
 
-  /* Bloques de código */
   :global(.contenido-tutorial pre) {
     font-size: 13px;
     padding: 16px 14px 16px 14px;
     border-radius: 10px;
-    /* deja espacio para el botón copiar */
     padding-top: 42px;
   }
 
@@ -194,14 +184,12 @@ h1, h2 {
     border-radius: 6px;
   }
 
-  /* Código inline */
   :global(.contenido-tutorial li code),
   :global(.contenido-tutorial p code) {
     font-size: 0.83em;
     padding: 2px 5px;
   }
 
-  /* Tipografía del contenido */
   :global(.contenido-tutorial p) {
     font-size: 1rem;
     line-height: 1.7;
@@ -226,26 +214,17 @@ h1, h2 {
     margin-bottom: 0.3rem;
   }
 
-  /* Imágenes responsivas */
   :global(.contenido-tutorial img) {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
   }
 
-  /* Tablas con scroll horizontal */
   :global(.contenido-tutorial table) {
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     font-size: 0.9rem;
-  }
-
-  footer {
-    text-align: center;
-    font-size: 0.85rem;
-    padding: 1.5rem 0 2rem;
-    color: #888;
   }
 }
 

@@ -1,0 +1,69 @@
+---
+import TutorialLayout from '../../layouts/TutorialLayout.astro';
+
+const titulo = "Privacy Policy";
+const lang = "en";
+
+const contenido = `
+  <p><strong>Last updated:</strong> February 2025</p>
+
+  <p>At <strong>BearsTips</strong> (<a href="https://bearstips.com">bearstips.com</a>), we take
+  your privacy seriously. This policy explains what information we collect, how we use it,
+  and what your rights are.</p>
+
+  <h3>1. Information we collect</h3>
+  <p>We do not collect personal information directly. However, when you visit this site,
+  certain data may be collected automatically through third-party services:</p>
+  <ul>
+    <li>IP address</li>
+    <li>Browser type and device</li>
+    <li>Pages visited and time spent</li>
+    <li>Country or region of access</li>
+  </ul>
+
+  <h3>2. Use of information</h3>
+  <p>Collected data is used exclusively to:</p>
+  <ul>
+    <li>Analyze traffic and improve site content</li>
+    <li>Display relevant advertising through Google AdSense</li>
+    <li>Ensure the correct technical functioning of the site</li>
+  </ul>
+  <p>We do not sell or share your personal information with third parties.</p>
+
+  <h3>3. Google AdSense</h3>
+  <p>This site uses <strong>Google AdSense</strong> to display ads. Google may use cookies to show
+  ads based on your previous visits to this or other websites. You can disable personalized ads at
+  <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Google Ad Settings</a>.</p>
+
+  <h3>4. Vercel</h3>
+  <p>This site is hosted on <strong>Vercel</strong>, which may collect basic access data to ensure
+  performance and security. See their
+  <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</p>
+
+  <h3>5. Cookies</h3>
+  <p>This site uses first-party and third-party cookies (Google AdSense/Analytics) to improve
+  the browsing experience and display relevant ads. You can disable cookies from your browser
+  settings, although some features may be affected.</p>
+
+  <h3>6. Your rights (GDPR)</h3>
+  <p>If you are an EU resident, you have the right to access, rectify, delete, and port your data,
+  as well as object to its processing. To exercise these rights, contact us at:
+  <a href="mailto:bearstips121@gmail.com">bearstips121@gmail.com</a></p>
+
+  <h3>7. Security</h3>
+  <p>We apply appropriate technical measures to protect collected information. However, no data
+  transmission over the Internet is 100% secure.</p>
+
+  <h3>8. Changes to this policy</h3>
+  <p>We may update this policy at any time. The date of the last update will always be shown
+  at the top of this page.</p>
+
+  <h3>9. Contact</h3>
+  <p>
+    📧 <a href="mailto:bearstips121@gmail.com">bearstips121@gmail.com</a><br/>
+    🌐 <a href="https://bearstips.com">bearstips.com</a>
+  </p>
+`;
+---
+
+<TutorialLayout titulo={titulo} contenido={contenido} lang={lang} />

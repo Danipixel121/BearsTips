@@ -1,0 +1,69 @@
+---
+const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
+
+const links = {
+  es: { privacy: '/es/politica-de-privacidad', privacyLabel: 'Política de Privacidad' },
+  en: { privacy: '/en/privacy-policy',         privacyLabel: 'Privacy Policy'          },
+};
+
+const t = links[lang as 'es' | 'en'];
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 BearsTips</span>
+    <nav class="footer-nav">
+      <a href={t.privacy} class="footer-link">{t.privacyLabel}</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid #222;
+    background: #0a0a0a;
+    padding: 1.25rem 2rem;
+    margin-top: 3rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: #555;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-link:hover {
+    color: #00ff9d;
+  }
+
+  @media (max-width: 600px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+</style>

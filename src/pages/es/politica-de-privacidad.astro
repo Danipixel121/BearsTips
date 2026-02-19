@@ -1,0 +1,70 @@
+---
+import TutorialLayout from '../../layouts/TutorialLayout.astro';
+
+const titulo = "Política de Privacidad";
+const lang = "es";
+
+const contenido = `
+  <p><strong>Última actualización:</strong> febrero de 2025</p>
+
+  <p>En <strong>BearsTips</strong> (<a href="https://bearstips.com">bearstips.com</a>), nos tomamos
+  en serio la privacidad de nuestros visitantes. Esta política explica qué información
+  recopilamos, cómo la usamos y cuáles son tus derechos.</p>
+
+  <h3>1. Información que recopilamos</h3>
+  <p>No recopilamos información personal de forma directa. Sin embargo, al visitar este sitio
+  pueden recopilarse automáticamente ciertos datos a través de servicios de terceros:</p>
+  <ul>
+    <li>Dirección IP</li>
+    <li>Tipo de navegador y dispositivo</li>
+    <li>Páginas visitadas y tiempo de permanencia</li>
+    <li>País o región de acceso</li>
+  </ul>
+
+  <h3>2. Uso de la información</h3>
+  <p>Los datos recopilados se utilizan exclusivamente para:</p>
+  <ul>
+    <li>Analizar el tráfico y mejorar el contenido del sitio</li>
+    <li>Mostrar publicidad relevante a través de Google AdSense</li>
+    <li>Garantizar el correcto funcionamiento técnico del sitio</li>
+  </ul>
+  <p>No vendemos ni compartimos tu información personal con terceros.</p>
+
+  <h3>3. Google AdSense</h3>
+  <p>Este sitio utiliza <strong>Google AdSense</strong> para mostrar publicidad. Google puede usar
+  cookies para mostrar anuncios basados en tus visitas anteriores a este u otros sitios web.
+  Puedes desactivar la publicidad personalizada en los
+  <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Ajustes de anuncios de Google</a>.</p>
+
+  <h3>4. Vercel</h3>
+  <p>El sitio está alojado en <strong>Vercel</strong>, que puede recopilar datos de acceso básicos
+  para garantizar el rendimiento y la seguridad. Consulta su
+  <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">política de privacidad</a>.</p>
+
+  <h3>5. Cookies</h3>
+  <p>Este sitio usa cookies propias y de terceros (Google AdSense/Analytics) para mejorar la
+  experiencia de navegación y mostrar publicidad relevante. Puedes desactivarlas desde la
+  configuración de tu navegador, aunque algunas funciones podrían verse afectadas.</p>
+
+  <h3>6. Tus derechos (RGPD)</h3>
+  <p>Si eres residente de la UE, tienes derecho a acceder, rectificar, eliminar y portar tus datos,
+  así como a oponerte a su tratamiento. Para ejercer estos derechos contáctanos en:
+  <a href="mailto:bearstips121@gmail.com">bearstips121@gmail.com</a></p>
+
+  <h3>7. Seguridad</h3>
+  <p>Aplicamos medidas técnicas adecuadas para proteger la información recopilada. Sin embargo,
+  ninguna transmisión de datos por Internet es 100% segura.</p>
+
+  <h3>8. Cambios en esta política</h3>
+  <p>Podemos actualizar esta política en cualquier momento. La fecha de la última actualización
+  siempre estará indicada al inicio de esta página.</p>
+
+  <h3>9. Contacto</h3>
+  <p>
+    📧 <a href="mailto:bearstips121@gmail.com">bearstips121@gmail.com</a><br/>
+    🌐 <a href="https://bearstips.com">bearstips.com</a>
+  </p>
+`;
+---
+
+<TutorialLayout titulo={titulo} contenido={contenido} lang={lang} />
