@@ -1,45 +1,50 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  import.meta.env.SUPABASE_URL,
-  import.meta.env.SUPABASE_ANON_KEY
-);
+const supabaseUrl = import.meta.env.SUPABASE_URL;
+const supabaseKey = import.meta.env.SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error('❌ ERROR: Falta SUPABASE_URL o SUPABASE_ANON_KEY');
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const GET: APIRoute = async () => {
-  const { data, error } = await supabase
-    .from('tutoriales_traducciones')
-    .select(`
-      idioma,
-      tutoriales (
-        slug,
-        categoria
-      )
-    `);
+  try {
+    // Traemos tutoriales con idioma, slug y categoria
+    const { data, error } = await supabase
+      .from('tutoriales_traducciones')
+      .select(`idioma, tutoriales (slug, categoria)`);
 
-  console.log('data:', JSON.stringify(data));
-  console.log('error:', error);
+    if (error) {
+      console.error('Supabase error:', error);
+      throw error;
+    }
 
-  const staticPages = [
-    'https://bearstips.com/',
-    'https://bearstips.com/es/',
-    'https://bearstips.com/en/',
-  ];
+    const staticPages = [
+      'https://bearstips.com/',
+      'https://bearstips.com/es/',
+      'https://bearstips.com/en/',
+    ];
 
-  const tutorialPages = data?.map((t: any) => {
-    return `https://bearstips.com/${t.idioma}/tutorial/${t.tutoriales.categoria}/${t.tutoriales.slug}`;
-  }) ?? [];
+    const tutorialPages = data?.map((t: any) =>
+      `https://bearstips.com/${t.idioma}/tutorial/${t.tutoriales.categoria}/${t.tutoriales.slug}`
+    ) ?? [];
 
-  const allPages = [...staticPages, ...tutorialPages];
+    const allPages = [...staticPages, ...tutorialPages];
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allPages.map(url => `  <url><loc>${url}</loc></url>`).join('\n')}
 </urlset>`;
 
-  return new Response(sitemap, {
-    headers: {
-      'Content-Type': 'application/xml',
-    },
-  });
+    return new Response(sitemap, {
+      headers: {
+        'Content-Type': 'application/xml',
+      },
+    });
+  } catch (err) {
+    return new Response('Error generando sitemap', { status: 500 });
+  }
 };
