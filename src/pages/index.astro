@@ -1,9 +1,8 @@
 ---
 export const prerender = false;
 
-// Detecta el idioma del navegador y redirige
 const lang = Astro.request.headers.get('accept-language') || '';
 const esIngles = lang.toLowerCase().startsWith('en');
 
-return Astro.redirect(esIngles ? '/en' : '/es');
+return Astro.redirect(esIngles ? '/en' : '/es', 302);
 ---
