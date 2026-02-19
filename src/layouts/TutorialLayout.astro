@@ -23,6 +23,7 @@ const urlInicio = lang === 'en' ? '/en' : '/';
   <title>{titulo}</title>
   <link rel="stylesheet" href="/assets/styles.css">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <Header />
@@ -93,7 +94,7 @@ h1, h2 {
   text-decoration: underline;
 }
 
-/* ✅ :global() para que afecte al HTML inyectado con set:html */
+/* ── Contenido inyectado con set:html ── */
 :global(.contenido-tutorial pre) {
   position: relative;
   background: #1e1e1e;
@@ -115,7 +116,6 @@ h1, h2 {
   font-family: 'Courier New', Courier, monospace;
 }
 
-/* Código inline dentro de párrafos y listas */
 :global(.contenido-tutorial li code),
 :global(.contenido-tutorial p code) {
   background: #1e1e1e;
@@ -149,5 +149,119 @@ h1, h2 {
   background: #2ea043;
   color: #fff;
   border-color: #2ea043;
+}
+
+/* ════════════════════════════════
+   MOBILE
+════════════════════════════════ */
+@media (max-width: 640px) {
+
+  main {
+    margin: 12px auto;
+    padding: 0 1.1rem;
+  }
+
+  .btn-volver {
+    font-size: 1rem;
+    margin: 0.75rem 0 0.5rem;
+    /* área de toque más grande */
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h2 {
+    font-size: 1.9rem;
+    line-height: 1.15;
+    margin: 0.5rem 0 1.25rem;
+  }
+
+  /* Bloques de código */
+  :global(.contenido-tutorial pre) {
+    font-size: 13px;
+    padding: 16px 14px 16px 14px;
+    border-radius: 10px;
+    /* deja espacio para el botón copiar */
+    padding-top: 42px;
+  }
+
+  :global(.copy-btn) {
+    top: 8px;
+    right: 8px;
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 6px;
+  }
+
+  /* Código inline */
+  :global(.contenido-tutorial li code),
+  :global(.contenido-tutorial p code) {
+    font-size: 0.83em;
+    padding: 2px 5px;
+  }
+
+  /* Tipografía del contenido */
+  :global(.contenido-tutorial p) {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  :global(.contenido-tutorial h3) {
+    font-size: 1.3rem;
+  }
+
+  :global(.contenido-tutorial h4) {
+    font-size: 1.1rem;
+  }
+
+  :global(.contenido-tutorial ul),
+  :global(.contenido-tutorial ol) {
+    padding-left: 1.4rem;
+  }
+
+  :global(.contenido-tutorial li) {
+    font-size: 1rem;
+    line-height: 1.65;
+    margin-bottom: 0.3rem;
+  }
+
+  /* Imágenes responsivas */
+  :global(.contenido-tutorial img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  /* Tablas con scroll horizontal */
+  :global(.contenido-tutorial table) {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.9rem;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 1.5rem 0 2rem;
+    color: #888;
+  }
+}
+
+@media (max-width: 360px) {
+
+  main {
+    padding: 0 0.9rem;
+  }
+
+  h2 {
+    font-size: 1.65rem;
+  }
+
+  :global(.contenido-tutorial pre) {
+    font-size: 12px;
+    padding: 40px 12px 14px;
+  }
 }
 </style>
