@@ -21,165 +21,118 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
 </Layout>
 
 <style is:global>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+@import 'prismjs/themes/prism-tomorrow.css';
 
-  main {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 0 20px;
-  }
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-  /* ── Bloques de código ── */
-  .code-block {
-    position: relative;
-    background: #ff0000;
-    color: #f8f8f2;
-    padding: 18px;
-    padding-top: 45px;
-    border-radius: 10px;
-    overflow-x: auto;
-    overflow-y: auto;
-    max-height: 400px;
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 1.2em 0;
-    font-family: 'Fira Code', Consolas, Monaco, monospace;
-  }
+main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
 
-  .code-block code {
-    background: none;
-    padding: 0;
-    color: inherit;
-    font-size: inherit;
-  }
+/* ── Bloques de código con Prism ── */
+.code-block {
+  position: relative;
+  border-radius: 10px;
+  overflow-x: auto;
+  padding: 1rem;
+  margin: 1.2em 0;
+  max-height: 400px;
+  font-family: 'Fira Code', Consolas, Monaco, monospace;
+  line-height: 1.6;
+  font-size: 14px;
+}
 
-  .code-block::-webkit-scrollbar {
-    height: 6px;
-    width: 6px;
-  }
+/* Botón copiar */
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #2d2d2d;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 5px 11px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.copy-btn:hover { background: #444; border-color: #777; }
+.copy-btn.copied { background: #16a34a; border-color: #16a34a; }
 
-  .code-block::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 3px;
-  }
+/* Etiqueta de idioma */
+.language-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #16a34a;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
 
-  /* ── Botón copiar ── */
-  .copy-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #2d2d2d;
-    color: #fff;
-    border: 1px solid #555;
-    padding: 5px 11px;
-    font-size: 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease;
-    user-select: none;
-  }
-
-  .copy-btn:hover {
-    background: #444;
-    border-color: #777;
-  }
-
-  .copy-btn.copied {
-    background: #16a34a;
-    border-color: #16a34a;
-  }
-
-  /* ── Tipografía tutorial ── */
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.4em;
-  }
-
-  .contenido-tutorial h2 {
-    font-size: 1.7rem;
-    margin-top: 2em;
-    margin-bottom: 0.4em;
-    color: #111;
-  }
-
-  .contenido-tutorial h3 {
-    font-size: 1.15rem;
-    margin-top: 1.6em;
-    color: #222;
-  }
-
-  .contenido-tutorial p {
-    line-height: 1.7;
-    color: #333;
-    margin: 0.6em 0 1em;
-  }
-
-  .contenido-tutorial a {
-    color: #2563eb;
-    text-decoration: underline;
-  }
-
-  .contenido-tutorial img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin: 1em 0;
-  }
-
-  .contenido-tutorial ul,
-  .contenido-tutorial ol {
-    padding-left: 1.4em;
-    line-height: 1.8;
-    color: #333;
-  }
-
-  /* ── Separador superior ── */
-  article.tutorial {
-    border-top: 1px solid #ddd;
-    padding-top: 24px;
-  }
+/* Tipografía tutorial */
+h1 { font-size: 2.5rem; margin-bottom: 0.4em; }
+.contenido-tutorial h2 { font-size: 1.7rem; margin-top:2em; margin-bottom:0.4em; color:#111;}
+.contenido-tutorial h3 { font-size: 1.15rem; margin-top:1.6em; color:#222;}
+.contenido-tutorial p { line-height:1.7; color:#333; margin:0.6em 0 1em;}
+.contenido-tutorial a { color:#2563eb; text-decoration: underline; }
+.contenido-tutorial img { max-width: 100%; border-radius: 8px; margin:1em 0;}
+.contenido-tutorial ul, .contenido-tutorial ol { padding-left:1.4em; line-height:1.8; color:#333; }
+article.tutorial { border-top: 1px solid #ddd; padding-top: 24px; }
 </style>
 
 <script is:inline>
+import Prism from 'prismjs';
+
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.contenido-tutorial pre').forEach(pre => {
     pre.classList.add('code-block');
 
-    if (pre.querySelector('.copy-btn')) return;
+    if (!pre.querySelector('.language-label')) {
+      const lang = pre.querySelector('code')?.className.replace('language-', '').toUpperCase() || 'CODE';
+      const label = document.createElement('div');
+      label.className = 'language-label';
+      label.innerText = lang;
+      pre.appendChild(label);
+    }
 
-    const btn = document.createElement('button');
-    btn.innerText = 'Copiar';
-    btn.className = 'copy-btn';
+    if (!pre.querySelector('.copy-btn')) {
+      const btn = document.createElement('button');
+      btn.innerText = 'Copiar';
+      btn.className = 'copy-btn';
 
-    btn.addEventListener('click', async () => {
-      const codeEl = pre.querySelector('code');
-      const text = codeEl ? codeEl.innerText : pre.innerText;
+      btn.addEventListener('click', async () => {
+        const codeEl = pre.querySelector('code');
+        const text = codeEl ? codeEl.innerText : pre.innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.innerText = '¡Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.innerText = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+      });
 
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-      }
-
-      btn.innerText = '¡Copiado!';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.innerText = 'Copiar';
-        btn.classList.remove('copied');
-      }, 2000);
-    });
-
-    pre.appendChild(btn);
+      pre.appendChild(btn);
+    }
   });
+
+  Prism.highlightAll();
 });
 </script>
