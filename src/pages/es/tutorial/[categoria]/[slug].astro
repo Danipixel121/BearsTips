@@ -1,6 +1,7 @@
 ---
 import { supabase } from '../../../../lib/supabase.ts';
 import TutorialLayout from '../../../../layouts/TutorialLayout.astro';
+import { formatearBloquesCodigo } from '../../../../utils/formatCode.js'; // 👈 LÍNEA 1
 
 export async function getStaticPaths() {
   const { data } = await supabase
@@ -24,9 +25,11 @@ if (!tutorialData) return Astro.redirect('/es');
 
 const traduccion = tutorialData.traducciones.find(tr => tr.idioma === 'es');
 
+const contenidoFormateado = await formatearBloquesCodigo(traduccion?.contenido || ''); // 👈 LÍNEA 2
+
 const tutorial = {
   titulo: traduccion?.titulo || '',
-  contenido: traduccion?.contenido || '',
+  contenido: contenidoFormateado, // 👈 LÍNEA 3 (antes era traduccion?.contenido || '')
   descripcion: traduccion?.descripcion || '',
   logo: tutorialData.logo_url
 };
