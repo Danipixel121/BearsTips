@@ -3,7 +3,7 @@ import Layout from './Layout.astro';
 
 const { titulo, contenido, description, slug, categoria } = Astro.props;
 
-const pageTitle = `${titulo} | BearStips`;
+const pageTitle = titulo; 
 const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
 ---
 
