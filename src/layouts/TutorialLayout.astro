@@ -20,7 +20,7 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
   </main>
 </Layout>
 
-<style>
+<style is:global>
   body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -144,9 +144,7 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", function () {
-    // Añadir botón a cada bloque <pre>
     document.querySelectorAll('.contenido-tutorial pre').forEach(function (pre) {
-      // Evitar duplicar si ya tiene botón
       if (pre.querySelector('.copy-btn')) return;
 
       const btn = document.createElement('button');
@@ -165,7 +163,6 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
             btn.classList.remove('copied');
           }, 2000);
         }).catch(function () {
-          // Fallback para navegadores sin clipboard API
           const ta = document.createElement('textarea');
           ta.value = text;
           ta.style.position = 'fixed';
