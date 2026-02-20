@@ -62,7 +62,29 @@ main {
   font-size: 13.5px;
   line-height: 1.7;
   max-height: 480px;
+
+  /* 👇 AÑADE ESTO */
+  overflow-y: auto;
+  overflow-x: hidden;
+
   box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+}
+
+.contenido-tutorial pre::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contenido-tutorial pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.contenido-tutorial pre::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+.contenido-tutorial pre::-webkit-scrollbar-thumb:hover {
+  background: #444;
 }
 
 /* Top bar inside code block */
