@@ -2,8 +2,18 @@
 const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
 
 const links = {
-  es: { privacy: '/es/politica-de-privacidad', privacyLabel: 'Política de Privacidad' },
-  en: { privacy: '/en/privacy-policy',         privacyLabel: 'Privacy Policy'          },
+  es: {
+    privacy: '/es/politica-de-privacidad',
+    privacyLabel: 'Política de Privacidad',
+    contact: '/es/contacto',
+    contactLabel: 'Contacto',
+  },
+  en: {
+    privacy: '/en/privacy-policy',
+    privacyLabel: 'Privacy Policy',
+    contact: '/en/contact',
+    contactLabel: 'Contact',
+  },
 };
 
 const t = links[lang as 'es' | 'en'];
@@ -13,6 +23,7 @@ const t = links[lang as 'es' | 'en'];
   <div class="footer-inner">
     <span class="footer-copy">© 2026 BearsTips</span>
     <nav class="footer-nav">
+      <a href={t.contact} class="footer-link">{t.contactLabel}</a>
       <a href={t.privacy} class="footer-link">{t.privacyLabel}</a>
     </nav>
   </div>
