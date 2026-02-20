@@ -101,28 +101,10 @@ main {
 .token.property { color: #7ee787 !important; }
 .token.selector { color: #f47067 !important; }
 
-/* Language label — top right, green pill */
-.language-label {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: var(--green-label);
-  color: #fff;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  z-index: 10;
-  user-select: none;
-}
-
 /* Copy button */
 .copy-btn {
   position: absolute;
-  top: 40px;
+  top: 12px;
   right: 12px;
   background: transparent;
   color: #aaa;
@@ -217,21 +199,6 @@ article.tutorial {
 <script is:inline>
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.contenido-tutorial pre').forEach(pre => {
-    // Language label
-    if (!pre.querySelector('.language-label')) {
-      const codeEl = pre.querySelector('code');
-      const lang = (codeEl?.className || '')
-        .split(' ')
-        .find(c => c.startsWith('language-'))
-        ?.replace('language-', '')
-        .toUpperCase() || 'CODE';
-
-      const label = document.createElement('div');
-      label.className = 'language-label';
-      label.textContent = lang;
-      pre.appendChild(label);
-    }
-
     // Copy button with icon
     if (!pre.querySelector('.copy-btn')) {
       const btn = document.createElement('button');
