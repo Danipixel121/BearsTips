@@ -33,26 +33,45 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
     padding: 0 20px;
   }
 
-  /* ── Bloques pre/code ── */
+  /* ── Wrapper que limita altura y hace scroll ── */
   pre {
     position: relative;
     background: #1e1e1e;
     color: #f8f8f2;
-    padding: 18px;
-    padding-top: 45px;
     border-radius: 10px;
-    overflow-x: auto;
-    font-size: 14px;
-    line-height: 1.6;
     margin: 1.2em 0;
+    /* Limitar a ~3 líneas de código (cada línea ~1.6 * 14px ≈ 22px) */
+    max-height: 140px;
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+
+  /* Scroll personalizado */
+  pre::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  pre::-webkit-scrollbar-track {
+    background: #2d2d2d;
+    border-radius: 0 10px 10px 0;
+  }
+  pre::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 3px;
+  }
+  pre::-webkit-scrollbar-thumb:hover {
+    background: #777;
   }
 
   pre code {
+    display: block;
     font-family: Consolas, Monaco, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 18px;
+    /* Espacio arriba para que el botón no tape la primera línea */
+    padding-top: 14px;
     background: none;
-    padding: 0;
-    border-radius: 0;
-    font-size: inherit;
     color: inherit;
   }
 
@@ -66,11 +85,18 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
     font-size: 0.9em;
   }
 
-  /* ── Botón copiar ── */
+  /* ── Botón copiar: sticky dentro del pre ── */
   .copy-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    /* sticky dentro del contenedor pre con overflow */
+    position: sticky;
+    top: 8px;
+    /* Flotarlo a la derecha */
+    float: right;
+    /* Sacarlo del flujo para que no empuje el código */
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+
     background: #2d2d2d;
     color: #fff;
     border: 1px solid #555;
@@ -80,6 +106,8 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease;
     user-select: none;
+    /* Asegurar que quede por encima del código */
+    z-index: 1;
   }
 
   .copy-btn:hover {
@@ -180,7 +208,8 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
         });
       });
 
-      pre.appendChild(btn);
+      // El botón va ANTES del code para que el float:right funcione bien
+      pre.insertBefore(btn, pre.firstChild);
     });
   });
 </script>
