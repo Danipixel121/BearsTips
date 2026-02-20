@@ -1,5 +1,5 @@
 ---
-// src/pages/contacto.astro
+// src/pages/es/contacto.astro
 ---
 
 <html lang="es">
@@ -11,20 +11,16 @@
   <body>
     <h1>Contacto</h1>
 
-<form
-  action="https://formspree.io/f/mdallyao"
-  method="POST"
->
-  <label>
-    Tu Gmail:
-    <input type="email" name="email">
-  </label>
-  <label>
-    Tu mensaje:
-    <textarea name="message"></textarea>
-  </label>
-  <!-- your other form fields go here -->
-  <button type="submit">Enviar</button>
-</form>
+    <form action="https://formspree.io/f/mdallyao" method="POST">
+      <label>
+        Tu email:
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        Tu mensaje:
+        <textarea name="message" required></textarea>
+      </label>
+      <button type="submit">Enviar</button>
+    </form>
   </body>
 </html>
