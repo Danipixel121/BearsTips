@@ -1,21 +1,43 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+const {
+  title = "BearStips | Tutoriales de Programación y Software",
+  description = "Tutoriales prácticos de programación, desarrollo web y software paso a paso.",
+  canonical = "https://bearstips.com/"
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-		<link rel="icon" href="favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<meta property="og:title" content="BearsTips" />
-		<meta property="og:description" content="Tutoriales de programación, software y tecnología paso a paso"/>
-		<meta property="og:url" content="https://bearstips.com" />
-		<title>BearStips</title>
-	</head>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonical} />
+
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>
 	<body>
 		<Header />
 		<slot />

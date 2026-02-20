@@ -1,55 +1,24 @@
 ---
-const { titulo, contenido, lang = 'es' } = Astro.props;
-const { title, description } = Astro.props;
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Layout from './Layout.astro';
+
+const { titulo, contenido, description, slug, categoria } = Astro.props;
+
+const pageTitle = `${titulo} | BearStips`;
+const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
 ---
 
-<html lang={lang}>
-<head>
-  <meta charset="UTF-8">
-  <title>{titulo}</title>
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content={description}>
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-</head>
-<body>
-  <Header />
-
+<Layout
+  title={pageTitle}
+  description={description}
+  canonical={canonical}
+>
   <main>
     <article class="tutorial">
-      <h2>{titulo}</h2>
+      <h1>{titulo}</h1>
       <div class="contenido-tutorial" set:html={contenido}></div>
     </article>
   </main>
-
-  <Footer />
-
-  <script>
-    document.querySelectorAll('pre').forEach(function(pre) {
-      const btn = document.createElement('button');
-      btn.innerText = 'Copiar';
-      btn.className = 'copy-btn';
-
-      btn.addEventListener('click', function() {
-        const code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
-        navigator.clipboard.writeText(code).then(function() {
-          btn.innerText = '¡Copiado!';
-          btn.classList.add('copied');
-          setTimeout(function() {
-            btn.innerText = 'Copiar';
-            btn.classList.remove('copied');
-          }, 2000);
-        });
-      });
-
-      pre.appendChild(btn);
-    });
-  </script>
-</body>
-</html>
+</Layout>
 
 <style>
 body {
@@ -64,137 +33,34 @@ main {
   padding: 0 20px;
 }
 
-h1, h2 {
+h1 {
   font-size: 2.5rem;
 }
 
-:global(.contenido-tutorial pre) {
-  position: relative;
-  background: #1e1e1e;
-  color: #d4d4d4;
-  border-radius: 8px;
-  padding: 20px 16px;
-  overflow-x: auto;
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 20px 0;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-:global(.contenido-tutorial pre code) {
-  background: none;
-  color: inherit;
-  padding: 0;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-:global(.contenido-tutorial li code),
-:global(.contenido-tutorial p code) {
-  background: #1e1e1e;
-  color: #d4d4d4;
-  font-family: 'Courier New', monospace;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.88em;
-}
-
-:global(.copy-btn) {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #3a3a3a;
-  color: #ccc;
-  border: 1px solid #555;
-  border-radius: 5px;
-  padding: 4px 10px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-:global(.copy-btn:hover) {
-  background: #555;
-  color: #fff;
-}
-
-:global(.copy-btn.copied) {
-  background: #2ea043;
-  color: #fff;
-  border-color: #2ea043;
-}
-
-@media (max-width: 640px) {
-  main {
-    margin: 12px auto;
-    padding: 0 1.1rem;
-  }
-
-  h2 {
-    font-size: 1.9rem;
-    line-height: 1.15;
-    margin: 0.5rem 0 1.25rem;
-  }
-
-  :global(.contenido-tutorial pre) {
-    font-size: 13px;
-    padding-top: 42px;
-    border-radius: 10px;
-  }
-
-  :global(.copy-btn) {
-    top: 8px;
-    right: 8px;
-    font-size: 11px;
-    padding: 5px 10px;
-    border-radius: 6px;
-  }
-
-  :global(.contenido-tutorial li code),
-  :global(.contenido-tutorial p code) {
-    font-size: 0.83em;
-    padding: 2px 5px;
-  }
-
-  :global(.contenido-tutorial p) {
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-
-  :global(.contenido-tutorial h3) { font-size: 1.3rem; }
-  :global(.contenido-tutorial h4) { font-size: 1.1rem; }
-
-  :global(.contenido-tutorial ul),
-  :global(.contenido-tutorial ol) {
-    padding-left: 1.4rem;
-  }
-
-  :global(.contenido-tutorial li) {
-    font-size: 1rem;
-    line-height: 1.65;
-    margin-bottom: 0.3rem;
-  }
-
-  :global(.contenido-tutorial img) {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-
-  :global(.contenido-tutorial table) {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 360px) {
-  main { padding: 0 0.9rem; }
-  h2 { font-size: 1.65rem; }
-  :global(.contenido-tutorial pre) {
-    font-size: 12px;
-    padding: 40px 12px 14px;
-  }
-}
+/* TODO tu CSS exactamente igual debajo */
 </style>
+
+<script>
+  document.querySelectorAll('pre').forEach(function(pre) {
+    const btn = document.createElement('button');
+    btn.innerText = 'Copiar';
+    btn.className = 'copy-btn';
+
+    btn.addEventListener('click', function() {
+      const code = pre.querySelector('code') 
+        ? pre.querySelector('code').innerText 
+        : pre.innerText;
+
+      navigator.clipboard.writeText(code).then(function() {
+        btn.innerText = '¡Copiado!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.innerText = 'Copiar';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    pre.appendChild(btn);
+  });
+</script>
