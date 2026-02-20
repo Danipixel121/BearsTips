@@ -5,8 +5,7 @@ const {
   canonical = "https://bearstips.com/"
 } = Astro.props;
 ---
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -17,13 +16,25 @@ const {
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonical} />
 
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:locale" content="es_ES" />
 
-    <link rel="icon" href="/favicon.ico" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/og-image.png" />
   </head>
 
   <body>
@@ -32,24 +43,12 @@ const {
     <Footer />
   </body>
 </html>
-  <body>
-    <Header />
-    <slot />
-    <Footer />
-  </body>
-</html>
-	<body>
-		<Header />
-		<slot />
-		<Footer />
-	</body>
-</html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
