@@ -2,14 +2,21 @@
 import { supabase } from '../../../../lib/supabase.ts';
 import TutorialLayout from '../../../../layouts/TutorialLayout.astro';
 
+export async function getStaticPaths() {
+  const { data } = await supabase
+    .from('tutoriales')
+    .select('slug, categoria');
+
+  return (data || []).map(t => ({
+    params: { categoria: t.categoria, slug: t.slug }
+  }));
+}
+
 const { categoria, slug } = Astro.params;
 
 const { data: tutorialData } = await supabase
   .from('tutoriales')
-  .select(`
-    *,
-    traducciones:tutoriales_traducciones(*)
-  `)
+  .select(`*, traducciones:tutoriales_traducciones(*)`)
   .eq('slug', slug)
   .single();
 
@@ -20,6 +27,7 @@ const traduccion = tutorialData.traducciones.find(tr => tr.idioma === 'es');
 const tutorial = {
   titulo: traduccion?.titulo || '',
   contenido: traduccion?.contenido || '',
+  descripcion: traduccion?.descripcion || '',
   logo: tutorialData.logo_url
 };
 ---
