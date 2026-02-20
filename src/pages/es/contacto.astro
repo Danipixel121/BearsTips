@@ -24,3 +24,75 @@
     </form>
   </body>
 </html>
+
+<style>
+  body {
+    background: #0a0a0a;
+    color: #ccc;
+    font-family: 'Space Mono', monospace;
+    max-width: 600px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 2rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: #888;
+  }
+
+  input,
+  textarea {
+    background: #111;
+    border: 1px solid #222;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: #00ff9d;
+  }
+
+  textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+
+  button {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid #00ff9d;
+    color: #00ff9d;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    padding: 0.6rem 1.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  button:hover {
+    background: #00ff9d;
+    color: #0a0a0a;
+  }
+</style>
