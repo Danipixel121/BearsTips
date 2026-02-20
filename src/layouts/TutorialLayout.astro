@@ -33,26 +33,39 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
     padding: 0 20px;
   }
 
+  /* ── Bloques de código ── */
   .code-block {
-  position: relative;
-  background: #1e1e1e;
-  color: #f8f8f2;
-  padding: 18px;
-  padding-top: 45px;
-  border-radius: 10px;
-  overflow-x: auto;
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 1.2em 0;
-  font-family: Consolas, Monaco, monospace;
-}
-.code-block code {
-  background: none;
-  padding: 0;
-  color: inherit;
-  font-size: inherit;
-}
+    position: relative;
+    background: #1e1e1e;
+    color: #f8f8f2;
+    padding: 18px;
+    padding-top: 45px;
+    border-radius: 10px;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 400px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 1.2em 0;
+    font-family: 'Fira Code', Consolas, Monaco, monospace;
+  }
 
+  .code-block code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+
+  .code-block::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+
+  .code-block::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 3px;
+  }
 
   /* ── Botón copiar ── */
   .copy-btn {
@@ -80,7 +93,7 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
     border-color: #16a34a;
   }
 
-  /* ── Tipografía general del tutorial ── */
+  /* ── Tipografía tutorial ── */
   h1 {
     font-size: 2.5rem;
     margin-bottom: 0.4em;
@@ -133,25 +146,37 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
 <script is:inline>
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.contenido-tutorial pre').forEach(pre => {
-    pre.classList.add('code-block'); // clase global para CSS
+    pre.classList.add('code-block');
+
     if (pre.querySelector('.copy-btn')) return;
 
     const btn = document.createElement('button');
     btn.innerText = 'Copiar';
     btn.className = 'copy-btn';
 
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       const codeEl = pre.querySelector('code');
       const text = codeEl ? codeEl.innerText : pre.innerText;
 
-      navigator.clipboard.writeText(text).then(() => {
-        btn.innerText = '¡Copiado!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.innerText = 'Copiar';
-          btn.classList.remove('copied');
-        }, 2000);
-      });
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+
+      btn.innerText = '¡Copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerText = 'Copiar';
+        btn.classList.remove('copied');
+      }, 2000);
     });
 
     pre.appendChild(btn);
