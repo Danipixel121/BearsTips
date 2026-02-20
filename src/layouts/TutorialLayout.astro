@@ -33,38 +33,26 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
     padding: 0 20px;
   }
 
-  /* ── Bloques pre/code ── */
-  pre {
-    position: relative;
-    background: #1e1e1e;
-    color: #f8f8f2;
-    padding: 18px;
-    padding-top: 45px;
-    border-radius: 10px;
-    overflow-x: auto;
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 1.2em 0;
-  }
+  .code-block {
+  position: relative;
+  background: #1e1e1e;
+  color: #f8f8f2;
+  padding: 18px;
+  padding-top: 45px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 1.2em 0;
+  font-family: Consolas, Monaco, monospace;
+}
+.code-block code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
 
-  pre code {
-    font-family: Consolas, Monaco, monospace;
-    background: none;
-    padding: 0;
-    border-radius: 0;
-    font-size: inherit;
-    color: inherit;
-  }
-
-  /* ── Código inline ── */
-  :not(pre) > code {
-    font-family: Consolas, Monaco, monospace;
-    background: #f0f0f0;
-    color: #c7254e;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.9em;
-  }
 
   /* ── Botón copiar ── */
   .copy-btn {
@@ -143,44 +131,30 @@ const canonical = `https://bearstips.com/es/tutorial/${categoria}/${slug}`;
 </style>
 
 <script is:inline>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.contenido-tutorial pre').forEach(function (pre) {
-      if (pre.querySelector('.copy-btn')) return;
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.contenido-tutorial pre').forEach(pre => {
+    pre.classList.add('code-block'); // clase global para CSS
+    if (pre.querySelector('.copy-btn')) return;
 
-      const btn = document.createElement('button');
-      btn.innerText = 'Copiar';
-      btn.className = 'copy-btn';
+    const btn = document.createElement('button');
+    btn.innerText = 'Copiar';
+    btn.className = 'copy-btn';
 
-      btn.addEventListener('click', function () {
-        const codeEl = pre.querySelector('code');
-        const text = codeEl ? codeEl.innerText : pre.innerText;
+    btn.addEventListener('click', () => {
+      const codeEl = pre.querySelector('code');
+      const text = codeEl ? codeEl.innerText : pre.innerText;
 
-        navigator.clipboard.writeText(text).then(function () {
-          btn.innerText = '¡Copiado!';
-          btn.classList.add('copied');
-          setTimeout(function () {
-            btn.innerText = 'Copiar';
-            btn.classList.remove('copied');
-          }, 2000);
-        }).catch(function () {
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          ta.style.position = 'fixed';
-          ta.style.opacity = '0';
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand('copy');
-          document.body.removeChild(ta);
-          btn.innerText = '¡Copiado!';
-          btn.classList.add('copied');
-          setTimeout(function () {
-            btn.innerText = 'Copiar';
-            btn.classList.remove('copied');
-          }, 2000);
-        });
+      navigator.clipboard.writeText(text).then(() => {
+        btn.innerText = '¡Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerText = 'Copiar';
+          btn.classList.remove('copied');
+        }, 2000);
       });
-
-      pre.appendChild(btn);
     });
+
+    pre.appendChild(btn);
   });
+});
 </script>
